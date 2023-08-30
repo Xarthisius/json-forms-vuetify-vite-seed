@@ -7,13 +7,23 @@
 </template>
 
 <script setup lang="ts">
-  import { JsonSchema7 } from '@jsonforms/core';
+  import { JsonSchema7, uiTypeIs } from '@jsonforms/core';
 import {JsonForms} from '@jsonforms/vue'
   import {vuetifyRenderers} from '@jsonforms/vue-vuetify'
-  import { entry as SpacerEntry } from './components/CustomRenderer.vue'
+  import CustomRendererComponent  from './components/CustomRenderer.vue'
+  import { JsonFormsRendererRegistryEntry, rankWith, Tester} from "@jsonforms/core";
 
+function buildRendererRegistryEntry(testRenderer: any, controlType: Tester) {
+  const entry: JsonFormsRendererRegistryEntry = {
+    renderer: testRenderer,
+    tester: rankWith(3, controlType )
+  };
+  return entry
+}
 
-  const renderers = [ ...vuetifyRenderers, SpacerEntry ]
+const customRendererEntry = buildRendererRegistryEntry(CustomRendererComponent, uiTypeIs('Custom'))
+
+  const renderers = [ ...vuetifyRenderers, customRendererEntry ]
   const jsonschema: JsonSchema7 = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
