@@ -32,7 +32,7 @@ const customRendererEntry = buildRendererRegistryEntry(CustomRendererComponent, 
 // reactive state
 const renderers = Object.freeze([...vuetifyRenderers, customRendererEntry]);
 const jsonschema = ref<JsonSchema7>({});
-const uischema = ref({});
+const uischema = ref(undefined);
 const formData = ref<JsonFormsChangeEvent>({ data: {}, errors: [] });
 const data = ref({});
 
